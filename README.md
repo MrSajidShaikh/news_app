@@ -2,6 +2,26 @@ A Flutter-based news app that utilizes the GetX package for state management, AP
 
 ###
 
+#### Technology:
+  * Flutter
+ 
+#### Packages Used:
+ * http
+ * provider
+ * get
+ * url launcher
+ 
+ #### State Management:
+  * Provider
+ 
+ #### Icons:
+
+   Created by myself.
+
+
+
+###
+
 <h3 align="center"> 1. Splash Screen </h3>
 
 ###
