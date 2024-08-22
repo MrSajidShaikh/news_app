@@ -1,15 +1,27 @@
-class NewsModal {
+
+class NewsDataModal {
   late List<Articles> articles;
 
-  NewsModal({required this.articles});
+  NewsDataModal({required this.articles});
 
-  factory NewsModal.fromMap(Map m1) {
-    return NewsModal(
+  factory NewsDataModal.fromMap(Map m1) {
+    return NewsDataModal(
         articles: (m1['articles'] as List)
             .map(
               (e) => Articles.fromMap(e),
         )
             .toList());
+  }
+}
+
+
+class Source {
+  late String name;
+
+  Source({required this.name});
+
+  factory Source.fromMap(Map m1) {
+    return Source(name: m1['name'] ?? 'Google');
   }
 }
 
@@ -38,18 +50,8 @@ class Articles {
       author: m1['author'] ?? 'Google',
       publishedAt: m1['publishedAt'] ?? '2024-08-12T15:17:57Z',
       urlToImage: m1['urlToImage'] ??
-          'https://contentstatic.techgig.com/photo/88607432/a-to-z-of-technology-top-tech-news-of-2021-at-a-glance.jpg?32786',
+          'https://img.freepik.com/premium-vector/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023_929078-218.jpg',
       source: Source.fromMap(m1['source']),
     );
-  }
-}
-
-class Source {
-  late String name;
-
-  Source({required this.name});
-
-  factory Source.fromMap(Map m1) {
-    return Source(name: m1['name'] ?? 'Google');
   }
 }

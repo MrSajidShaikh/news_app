@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:news_app/controller/url_launcher_controller.dart';
 import 'home_screen.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -8,222 +6,189 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        leading: const Icon(Icons.account_circle_outlined),
-        centerTitle: true,
-        title: const Text('News'),
+        backgroundColor: Colors.black,
+        leading: const BackButton(
+          color: Colors.white,
+        ),
+        // centerTitle: true,
+        title: const Text('Post',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 23,
+                fontWeight: FontWeight.w500)),
       ),
-      body: FutureBuilder(
-        future: detailHelper,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Image.network((detailList!
-                      .articles[selectedIndex].urlToImage ==
-                      '')
-                      ? 'https://images.tv9hindi.com/wp-content/uploads/2024/08/chief-election-commissioner-rajiv-kumar-addresses-press-conference-in-jammu.jpg?w=670&ar=16:9'
-                      : detailList!.articles[selectedIndex].urlToImage),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+      body: ListView(
+          children:[
+            FutureBuilder(
+              future: detailScreen,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          detailList!.articles[selectedIndex].source.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          detailList!.articles[selectedIndex].title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          detailList!.articles[selectedIndex].description,
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          detailList!.articles[selectedIndex].content,
-                          style: const TextStyle(
-                            fontSize: 17,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                urlController.urlLaunch(
-                                    detailList!.articles[selectedIndex].url);
-                              },
-                              child: const Text(
-                                'Click here for more information',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(detailList!
-                                .articles[selectedIndex].publishedAt),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Text(detailList!.articles[selectedIndex].author),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        const Divider(
-                          thickness: 2,
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.4,
-                              child: Image.asset(
-                                'assets/img/music.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width * 0.5,
-                              child: const Text(
-                                'Be the 1st one to Start the conversation',
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          height: height * 0.06,
-                          width: width,
-                          color: Colors.white,
-                          child: const Text(
-                            'Start Commenting',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: height * 0.06,
-                          width: width,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                'Repost',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
+                              Container(
+                                height: h * 0.06,
+                                width: w * 0.15,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/profilePic.jpg'),
+                                  ),
                                 ),
                               ),
-                              Icon(Icons.sync),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Yash Jain',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        width: w * 0.015,
+                                      ),
+                                      Icon(
+                                        Icons.verified,
+                                        color: Colors.blue,
+                                        size: 20,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    '@yashjain',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w100),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                width: w * 0.15,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  // maximumSize: Size(1, 1),
+                                  backgroundColor: Colors.white,
+                                  // padding:
+                                  //     const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                  minimumSize: const Size(90, 12),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Follow',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      letterSpacing: .75),
+                                ), // Button ka text
+                              )
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        const Divider(
-                          thickness: 2,
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        const Text(
-                          'Hashtags',
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          height: h * 0.5,
+                          width: w * 0.99 + 10,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: NetworkImage(
+                                (detailList!.articles[selectedIndex].urlToImage ==
+                                    ''
+                                    ? 'https://images.tv9hindi.com/wp-content/uploads/2024/08/chief-election-commissioner-rajiv-kumar-addresses-press-conference-in-jammu.jpg?w=670&ar=16:9'
+                                    : detailList!
+                                    .articles[selectedIndex].urlToImage),
+                              ),
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25),
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        hashtagContainer(height, '#BE AWARE OF CYBER CRIME'),
-                        hashtagContainer(height, '#AI IN INDIA'),
-                        hashtagContainer(height, '#INDIA WON THE WORLD CUP'),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
-                        const Divider(
-                          thickness: 2,
-                        ),
-                        SizedBox(
-                          height: height * 0.015,
-                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 400,
+                            width: 400,
+                            child: Column(
+                              children: [
+                                Text(
+                                  detailList!.articles[selectedIndex].source.name,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 30),
+                                ),
+                                // const SizedBox(
+                                //   height: 7,
+                                // ),
+                                Text(
+                                  detailList!.articles[selectedIndex].title,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 15),
+                                ),
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    '- ${detailList!.articles[selectedIndex].author}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                // const SizedBox(
+                                //   height: 18,
+                                // ),
+                                const Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Description',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 7,
+                                ),
+                                Text(
+                                  detailList!.articles[selectedIndex].description,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
-  }
-
-  Container hashtagContainer(double height, String text) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      height: height * 0.045,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Colors.white,
-        ),
-      ),
-      child: Text(
-        text,
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(color: Colors.white,),
+                  );
+                }
+              },
+            ),
+          ]
       ),
     );
   }
 }
-
-var urlController = Get.put(UrlLauncherController());
